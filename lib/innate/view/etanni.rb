@@ -11,7 +11,7 @@ module Innate
           temp = str.strip.gsub!(/<\?r\s+(.*?)\s+\?>/m, REPLACEMENT)
           eval "Proc.new do _out_ = [<<#{SEPARATOR}.chomp!]\n#{temp}#{STOP}_out_.join end", nil, (action.view || action.method)
         end
-        html = action.instance_eval(&etanni)
+        html = action.instance.instance_eval(&etanni)
         return html, 'text/html'
       end
     end
