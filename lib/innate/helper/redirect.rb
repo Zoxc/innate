@@ -4,14 +4,14 @@ module Innate
       def respond(body, status = 200, header = {})
         response.write body
         response.status = status
-        header['Content-Type'] ||= 'text/html'
+        header['Content-Type'] ||= Response.mime_type
         header.each{|key, value| response[key] = value }
 
         throw(:respond, response)
       end
 
       def respond!(body, status = 200, header = {})
-        header['Content-Type'] ||= 'text/html'
+        header['Content-Type'] ||= Response.mime_type
         throw(:respond, Response.new(body, status, header))
       end
 
@@ -70,7 +70,7 @@ module Innate
           "<a href='#{target}'>#{h target}</a>!"
       end
 
-      def redirect_referrer(fallback = '/')
+      def redirect_referrer(fallback = Innate.options.prefix)
         if (referer = request.env['HTTP_REFERER']) && (url = request.url)
           referer_uri, request_uri = URI(referer), URI(url)
 

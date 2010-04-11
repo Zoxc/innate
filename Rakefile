@@ -7,21 +7,21 @@ require 'date'
 PROJECT_SPECS = FileList['spec/{innate,example}/**/*.rb'].exclude('common.rb')
 PROJECT_MODULE = 'Innate'
 PROJECT_README = 'README.md'
-PROJECT_VERSION = ENV['VERSION'] || Date.today.strftime('%Y.%m.%d')
+PROJECT_VERSION = (ENV['VERSION'] || Date.today.strftime('%Y.%m.%d')).dup
 
 DEPENDENCIES = {
-  'rack' => {:version => '~> 1.0.0'},
+  'rack' => {:version => '= 1.1.0'},
 }
 
 DEVELOPMENT_DEPENDENCIES = {
   'bacon'     => {:version => '>= 1.1.0'},
-  'rack-test' => {:version => '>= 0.5.0', :lib => 'rack/test'}
+  'rack-test' => {:version => '>= 0.5.3', :lib => 'rack/test'}
 }
 
 if defined?(RUBY_PLATFORM) && RUBY_PLATFORM =~ /jruby/
-  DEVELOPMENT_DEPENDENCIES['json-jruby'] = {:version => '~> 1.1.7'}
+  DEVELOPMENT_DEPENDENCIES['json-jruby'] = {:version => '~> 1.2.0'}
 else
-  DEVELOPMENT_DEPENDENCIES['json'] = {:version => '~> 1.1.9'}
+  DEVELOPMENT_DEPENDENCIES['json'] = {:version => '~> 1.2.0'}
 end
 
 GEMSPEC = Gem::Specification.new{|s|
